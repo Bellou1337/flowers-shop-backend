@@ -2,6 +2,7 @@ import { logger } from "./lib/logger";
 import express from "express";
 import cors from "cors";
 import { authRouter } from "./routes/auth.router";
+import { userRouter } from "./routes/user.router";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./docs/swagger";
 import { errorHandler } from "./middlewares/error-handler.middleware";
@@ -15,6 +16,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/auth", authRouter);
+app.use("/users", userRouter);
 
 app.use(errorHandler);
 

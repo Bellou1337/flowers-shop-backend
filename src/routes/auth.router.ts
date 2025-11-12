@@ -2,6 +2,7 @@ import { Router } from "express";
 import { validate } from "../middlewares/validate.middleware";
 import { registerSchema, loginSchema } from "../schemas/auth.schema";
 import { AuthController } from "../auth/auth.controller";
+import { requireAuth } from "../middlewares/auth.middleware";
 
 export const authRouter = Router();
 
@@ -166,6 +167,8 @@ authRouter.post("/refresh", AuthController.refresh);
  *     tags:
  *       - auth
  *     summary: Logout user
+ *     security:
+ *       - cookieAuth: []
  *     responses:
  *       200:
  *         description: User successfully logged out
@@ -178,4 +181,4 @@ authRouter.post("/refresh", AuthController.refresh);
  *                   type: string
  *                   example: Logged out successfully
  */
-authRouter.post("/logout", AuthController.logout);
+authRouter.post("/logout", requireAuth, AuthController.logout);
