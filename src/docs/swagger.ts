@@ -6,10 +6,10 @@ export const swaggerSpec = swaggerJsdoc({
     info: { title: "Flowers API", version: "1.0.0" },
     components: {
       securitySchemes: {
-        cookieAuth: {
-          type: "apiKey",
-          in: "cookie",
-          name: "accessToken",
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
         },
       },
     },

@@ -10,7 +10,13 @@ export const requireAuth = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { accessToken } = req.cookies;
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    throw createError(401, "Access token missing");
+  }
+
+  const accessToken = authHeader.split(" ")[1];
 
   if (!accessToken) {
     throw createError(401, "Access token missing");

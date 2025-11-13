@@ -20,18 +20,15 @@ export class AuthController {
 
     setCookie(
       res,
-      "accessToken",
-      accessToken,
-      Number(process.env.JWT_ACCESS_EXPIRES_IN)
-    );
-    setCookie(
-      res,
       "refreshToken",
       refreshToken,
       Number(process.env.JWT_REFRESH_EXPIRES_IN)
     );
 
-    res.status(200).json({ ...user });
+    res.status(200).json({
+      accessToken,
+      user: user,
+    });
   };
 
   static refresh = async (req: Request, res: Response) => {
@@ -43,14 +40,7 @@ export class AuthController {
 
     const { accessToken } = await authService.refresh(refreshToken);
 
-    setCookie(
-      res,
-      "accessToken",
-      accessToken,
-      Number(process.env.JWT_ACCESS_EXPIRES_IN)
-    );
-
-    res.status(200).json({ message: "Token refreshed" });
+    res.status(200).json({ accessToken: accessToken });
   };
 
   static logout = async (req: Request, res: Response) => {

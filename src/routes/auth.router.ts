@@ -94,8 +94,14 @@ authRouter.post("/register", validate(registerSchema), AuthController.register);
  *         description: User successfully logged in
  *         content:
  *           application/json:
- *            schema:
+ *             schema:
+ *               type: object
  *               properties:
+ *                 accessToken:
+ *                   type: string
+ *                 user:
+ *                   type: object
+ *                   properties:
  *                     id:
  *                       type: string
  *                     email:
@@ -144,9 +150,8 @@ authRouter.post("/login", validate(loginSchema), AuthController.login);
  *             schema:
  *               type: object
  *               properties:
- *                 message:
+ *                 accessToken:
  *                   type: string
- *                   example: Token refreshed
  *       401:
  *         description: Refresh token missing or invalid
  *         content:
@@ -168,7 +173,7 @@ authRouter.post("/refresh", AuthController.refresh);
  *       - auth
  *     summary: Logout user
  *     security:
- *       - cookieAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: User successfully logged out

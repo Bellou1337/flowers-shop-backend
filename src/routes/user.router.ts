@@ -19,7 +19,7 @@ export const userRouter = Router();
  *       - users
  *     summary: Get current user profile
  *     security:
- *       - cookieAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Current user data
@@ -69,7 +69,7 @@ userRouter.get("/me", requireAuth, UserController.me);
  *       - users
  *     summary: Update user email
  *     security:
- *       - cookieAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -135,7 +135,7 @@ userRouter.patch(
  *       - users
  *     summary: Update user password
  *     security:
- *       - cookieAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -199,7 +199,7 @@ userRouter.patch(
  *       - users
  *     summary: Update user phone
  *     security:
- *       - cookieAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -266,7 +266,7 @@ userRouter.patch(
  *       - users
  *     summary: Update user name
  *     security:
- *       - cookieAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
