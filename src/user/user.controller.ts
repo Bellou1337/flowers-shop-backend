@@ -3,6 +3,11 @@ import { UserService } from "./user.service";
 import { UserMapper } from "./user.mapper";
 import createError from "http-errors";
 import { comparePassword, hashPassword } from "../shared/utils/password.utils";
+import { sendEmail } from "../lib/email";
+import {
+  emailVerificationTemplate,
+  passwordResetTemplate,
+} from "../templates/email.templates";
 
 const userService = new UserService();
 
@@ -13,10 +18,26 @@ export class UserController {
     res.json(UserMapper.toResponse(user!));
   };
 
-  static updateEmail = async (req: Request, res: Response) => {
+  static requestEmailChange = async (req: Request, res: Response) => {
     const { newEmail } = req.body;
 
-    const updatedUser = await userService.updateEmail(req.user!.id, newEmail);
+    const token = await userService.requestEmailChange(req.user!.id, newEmail);
+
+    await sendEmail({
+      to: newEmail,
+      subject: "Подтверждение смены email",
+      html: emailVerificationTemplate(token),
+    });
+
+    res.status(200).json({
+      message: "Verification email sent to new email address",
+    });
+  };
+
+  static confirmEmailChange = async (req: Request, res: Response) => {
+    const { token } = req.body;
+
+    const updatedUser = await userService.confirmEmailChange(token);
 
     res.status(200).json(UserMapper.toResponse(updatedUser));
   };

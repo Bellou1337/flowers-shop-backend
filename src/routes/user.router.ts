@@ -3,7 +3,8 @@ import { UserController } from "../user/user.controller";
 import { requireAuth } from "../middlewares/auth.middleware";
 import { validate } from "../middlewares/validate.middleware";
 import {
-  updateEmailSchema,
+  tokenSchema,
+  requestEmailChangeSchema,
   updateNameSchema,
   updatePasswordSchema,
   updatePhoneSchema,
@@ -63,11 +64,11 @@ userRouter.get("/me", requireAuth, UserController.me);
 
 /**
  * @openapi
- * /users/email:
- *   patch:
+ * /users/email/request:
+ *   post:
  *     tags:
  *       - users
- *     summary: Update user email
+ *     summary: Request email change
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -81,6 +82,46 @@ userRouter.get("/me", requireAuth, UserController.me);
  *               newEmail:
  *                 type: string
  *                 format: email
+ *     responses:
+ *       200:
+ *         description: Verification email sent
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Verification email sent to new email address
+ *       401:
+ *         description: Unauthorized
+ *       409:
+ *         description: Email already in use
+ */
+userRouter.post(
+  "/email/request",
+  validate(requestEmailChangeSchema),
+  requireAuth,
+  UserController.requestEmailChange
+);
+
+/**
+ * @openapi
+ * /users/email/confirm:
+ *   post:
+ *     tags:
+ *       - users
+ *     summary: Confirm email change
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [token]
+ *             properties:
+ *               token:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Email updated successfully
@@ -99,8 +140,8 @@ userRouter.get("/me", requireAuth, UserController.me);
  *                   type: string
  *                 role:
  *                   type: string
- *       401:
- *         description: Unauthorized
+ *       400:
+ *         description: Token expired
  *         content:
  *           application/json:
  *             schema:
@@ -108,9 +149,9 @@ userRouter.get("/me", requireAuth, UserController.me);
  *               properties:
  *                 error:
  *                   type: string
- *                   example: Access token missing
+ *                   example: Verification token expired
  *       404:
- *         description: User not found
+ *         description: Invalid token
  *         content:
  *           application/json:
  *             schema:
@@ -118,13 +159,12 @@ userRouter.get("/me", requireAuth, UserController.me);
  *               properties:
  *                 error:
  *                   type: string
- *                   example: User not found
+ *                   example: Token not found
  */
-userRouter.patch(
-  "/email",
-  validate(updateEmailSchema),
-  requireAuth,
-  UserController.updateEmail
+userRouter.post(
+  "/email/confirm",
+  validate(tokenSchema),
+  UserController.confirmEmailChange
 );
 
 /**

@@ -3,6 +3,10 @@ import { validate } from "../middlewares/validate.middleware";
 import { registerSchema, loginSchema } from "../schemas/auth.schema";
 import { AuthController } from "../auth/auth.controller";
 import { requireAuth } from "../middlewares/auth.middleware";
+import {
+  confirmPasswordResetSchema,
+  requestPasswordResetSchema,
+} from "../schemas/user.schema";
 
 export const authRouter = Router();
 
@@ -187,3 +191,98 @@ authRouter.post("/refresh", AuthController.refresh);
  *                   example: Logged out successfully
  */
 authRouter.post("/logout", requireAuth, AuthController.logout);
+
+/**
+ * @openapi
+ * /auth/password/reset-request:
+ *   post:
+ *     tags:
+ *       - auth
+ *     summary: Request password reset
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [email]
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *     responses:
+ *       200:
+ *         description: Reset email sent if user exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: If user exists, password reset email has been sent
+ */
+authRouter.post(
+  "/password/reset-request",
+  validate(requestPasswordResetSchema),
+  AuthController.requestPasswordReset
+);
+
+/**
+ * @openapi
+ * /auth/password/reset-confirm:
+ *   post:
+ *     tags:
+ *       - auth
+ *     summary: Confirm password reset
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [token, newPassword]
+ *             properties:
+ *               token:
+ *                 type: string
+ *               newPassword:
+ *                 type: string
+ *                 minLength: 6
+ *                 maxLength: 100
+ *     responses:
+ *       200:
+ *         description: Password reset successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Password has been reset successfully
+ *       400:
+ *         description: Token expired
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Reset token expired
+ *       404:
+ *         description: Invalid token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Invalid reset token
+ */
+authRouter.post(
+  "/password/reset-confirm",
+  validate(confirmPasswordResetSchema),
+  AuthController.confirmPasswordReset
+);
