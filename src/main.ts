@@ -1,3 +1,4 @@
+import "./config/env";
 import { logger } from "./lib/logger";
 import express from "express";
 import cors from "cors";

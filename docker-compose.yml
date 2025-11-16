@@ -1,6 +1,5 @@
 services:
   db:
-    container_name: flowers-shop-db
     image: postgres:15.2
     restart: always
     environment:
