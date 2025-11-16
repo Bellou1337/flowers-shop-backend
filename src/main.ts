@@ -5,6 +5,7 @@ import cors from "cors";
 import { authRouter } from "./routes/auth.router";
 import { userRouter } from "./routes/user.router";
 import { categoryRouter } from "./routes/category.router";
+import { productRouter } from "./routes/product.router";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./docs/swagger";
 import { errorHandler } from "./middlewares/error-handler.middleware";
@@ -21,6 +22,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/categories", categoryRouter);
+app.use("/products", productRouter);
 app.use("/uploads", express.static(path.resolve(__dirname, "../../uploads")));
 
 app.use(errorHandler);
