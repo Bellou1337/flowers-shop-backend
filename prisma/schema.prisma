@@ -18,6 +18,15 @@ enum VerificationType {
   PASSWORD_RESET
 }
 
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
 model User {
   id                 String              @id @default(uuid())
   email              String              @unique
@@ -28,6 +37,8 @@ model User {
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
   verificationTokens VerificationToken[]
+  cartItems          CartItem[]
+  orders             Order[]
 }
 
 model VerificationToken {
@@ -53,12 +64,55 @@ model Category {
 }
 
 model Product {
-  id          String    @id @default(uuid())
-  name        String    @unique
+  id          String      @id @default(uuid())
+  name        String      @unique
   description String?
   price       Int
-  stock       Int       @default(0)
+  stock       Int         @default(0)
   imageUrl    String?
   categoryId  String
-  category    Category? @relation(fields: [categoryId], references: [id])
+  cartItems   CartItem[]
+  orderItems  OrderItem[]
+
+  category Category? @relation(fields: [categoryId], references: [id])
+}
+
+model CartItem {
+  id        String   @id @default(uuid())
+  userId    String
+  productId String
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  userId          String
+  status          OrderStatus @default(PENDING)
+  totalPrice      Int
+  deliveryAddress String
+  contactPhone    String
+  comment         String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  orderItems OrderItem[]
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model OrderItem {
+  id        String @id @default(uuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Int
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
