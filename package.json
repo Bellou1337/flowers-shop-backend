@@ -10,7 +10,8 @@
     "migrate:dev": "prisma migrate dev --schema prisma/schema.prisma",
     "migrate:deploy": "prisma migrate deploy --schema prisma/schema.prisma",
     "generate": "prisma generate --schema prisma/schema.prisma",
-    "test": "jest --runInBand --coverage --coverageReporters=text --coverageReporters=lcov --coverageReporters=cobertura --reporters=default --reporters=jest-junit"
+    "test": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage --coverageReporters=text --coverageReporters=lcov"
   },
   "keywords": [],
   "author": "",
