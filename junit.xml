@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="44" failures="0" errors="0" time="4.745">
+  <testsuite name="Orders - Get User Orders (GET /orders/user)" errors="0" failures="0" skipped="0" timestamp="2025-12-04T19:10:05" time="1.608" tests="5">
+    <testcase classname="Orders - Get User Orders (GET /orders/user) Success flow returns a paginated list of user orders" name="Orders - Get User Orders (GET /orders/user) Success flow returns a paginated list of user orders" time="0.026">
+    </testcase>
+    <testcase classname="Orders - Get User Orders (GET /orders/user) Success flow supports filtering by status" name="Orders - Get User Orders (GET /orders/user) Success flow supports filtering by status" time="0.005">
+    </testcase>
+    <testcase classname="Orders - Get User Orders (GET /orders/user) Success flow returns empty list when user has no orders" name="Orders - Get User Orders (GET /orders/user) Success flow returns empty list when user has no orders" time="0.004">
+    </testcase>
+    <testcase classname="Orders - Get User Orders (GET /orders/user) Authorization errors returns 401 without token" name="Orders - Get User Orders (GET /orders/user) Authorization errors returns 401 without token" time="0.004">
+    </testcase>
+    <testcase classname="Orders - Get User Orders (GET /orders/user) Authorization errors returns 401 with invalid token" name="Orders - Get User Orders (GET /orders/user) Authorization errors returns 401 with invalid token" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="Orders - Update Status (PATCH /orders/:id/status)" errors="0" failures="0" skipped="0" timestamp="2025-12-04T19:10:07" time="0.367" tests="5">
+    <testcase classname="Orders - Update Status (PATCH /orders/:id/status) Success flow updates status for existing order when admin" name="Orders - Update Status (PATCH /orders/:id/status) Success flow updates status for existing order when admin" time="0.031">
+    </testcase>
+    <testcase classname="Orders - Update Status (PATCH /orders/:id/status) Error cases returns 404 when order does not exist" name="Orders - Update Status (PATCH /orders/:id/status) Error cases returns 404 when order does not exist" time="0.008">
+    </testcase>
+    <testcase classname="Orders - Update Status (PATCH /orders/:id/status) Error cases returns 400 for invalid status payload" name="Orders - Update Status (PATCH /orders/:id/status) Error cases returns 400 for invalid status payload" time="0.007">
+    </testcase>
+    <testcase classname="Orders - Update Status (PATCH /orders/:id/status) Authorization returns 401 when token is missing" name="Orders - Update Status (PATCH /orders/:id/status) Authorization returns 401 when token is missing" time="0.006">
+    </testcase>
+    <testcase classname="Orders - Update Status (PATCH /orders/:id/status) Authorization returns 403 for non-admin user" name="Orders - Update Status (PATCH /orders/:id/status) Authorization returns 403 for non-admin user" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="Orders - Create Order (POST /orders)" errors="0" failures="0" skipped="0" timestamp="2025-12-04T19:10:07" time="0.333" tests="6">
+    <testcase classname="Orders - Create Order (POST /orders) Success flow creates an order from the current cart and returns mapped response" name="Orders - Create Order (POST /orders) Success flow creates an order from the current cart and returns mapped response" time="0.023">
+    </testcase>
+    <testcase classname="Orders - Create Order (POST /orders) Business rule errors returns 400 when cart is empty" name="Orders - Create Order (POST /orders) Business rule errors returns 400 when cart is empty" time="0.008">
+    </testcase>
+    <testcase classname="Orders - Create Order (POST /orders) Business rule errors returns 400 when cart has insufficient stock" name="Orders - Create Order (POST /orders) Business rule errors returns 400 when cart has insufficient stock" time="0.005">
+    </testcase>
+    <testcase classname="Orders - Create Order (POST /orders) Validation errors returns 400 when deliveryAddress is missing" name="Orders - Create Order (POST /orders) Validation errors returns 400 when deliveryAddress is missing" time="0.004">
+    </testcase>
+    <testcase classname="Orders - Create Order (POST /orders) Validation errors returns 400 for invalid phone" name="Orders - Create Order (POST /orders) Validation errors returns 400 for invalid phone" time="0.004">
+    </testcase>
+    <testcase classname="Orders - Create Order (POST /orders) Authorization returns 401 without token" name="Orders - Create Order (POST /orders) Authorization returns 401 without token" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="Cart - Get Cart (GET /cart)" errors="0" failures="0" skipped="0" timestamp="2025-12-04T19:10:08" time="0.346" tests="5">
+    <testcase classname="Cart - Get Cart (GET /cart) Success flow returns list of cart items for the user" name="Cart - Get Cart (GET /cart) Success flow returns list of cart items for the user" time="0.013">
+    </testcase>
+    <testcase classname="Cart - Get Cart (GET /cart) Success flow returns cart items with correct structure" name="Cart - Get Cart (GET /cart) Success flow returns cart items with correct structure" time="0.006">
+    </testcase>
+    <testcase classname="Cart - Get Cart (GET /cart) Success flow returns empty array when cart is empty" name="Cart - Get Cart (GET /cart) Success flow returns empty array when cart is empty" time="0.005">
+    </testcase>
+    <testcase classname="Cart - Get Cart (GET /cart) Authorization errors returns 401 when token is missing" name="Cart - Get Cart (GET /cart) Authorization errors returns 401 when token is missing" time="0.004">
+    </testcase>
+    <testcase classname="Cart - Get Cart (GET /cart) Authorization errors returns 401 when token is invalid" name="Cart - Get Cart (GET /cart) Authorization errors returns 401 when token is invalid" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="Cart - Add Item (POST /cart)" errors="0" failures="0" skipped="0" timestamp="2025-12-04T19:10:08" time="0.351" tests="6">
+    <testcase classname="Cart - Add Item (POST /cart) Success flow creates a new cart item when product exists and stock is enough" name="Cart - Add Item (POST /cart) Success flow creates a new cart item when product exists and stock is enough" time="0.033">
+    </testcase>
+    <testcase classname="Cart - Add Item (POST /cart) Success flow increments quantity when item is already in cart" name="Cart - Add Item (POST /cart) Success flow increments quantity when item is already in cart" time="0.006">
+    </testcase>
+    <testcase classname="Cart - Add Item (POST /cart) Validation and stock errors returns 404 when product does not exist" name="Cart - Add Item (POST /cart) Validation and stock errors returns 404 when product does not exist" time="0.006">
+    </testcase>
+    <testcase classname="Cart - Add Item (POST /cart) Validation and stock errors returns 400 when stock is insufficient" name="Cart - Add Item (POST /cart) Validation and stock errors returns 400 when stock is insufficient" time="0.005">
+    </testcase>
+    <testcase classname="Cart - Add Item (POST /cart) Validation and stock errors returns 400 for invalid quantity" name="Cart - Add Item (POST /cart) Validation and stock errors returns 400 for invalid quantity" time="0.005">
+    </testcase>
+    <testcase classname="Cart - Add Item (POST /cart) Authorization fails with 401 when token is missing" name="Cart - Add Item (POST /cart) Authorization fails with 401 when token is missing" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="Auth - Register (POST /auth/register)" errors="0" failures="0" skipped="0" timestamp="2025-12-04T19:10:09" time="0.446" tests="7">
+    <testcase classname="Auth - Register (POST /auth/register) Success flow registers a new user with valid data" name="Auth - Register (POST /auth/register) Success flow registers a new user with valid data" time="0.087">
+    </testcase>
+    <testcase classname="Auth - Register (POST /auth/register) Conflicts returns 409 when email already exists" name="Auth - Register (POST /auth/register) Conflicts returns 409 when email already exists" time="0.004">
+    </testcase>
+    <testcase classname="Auth - Register (POST /auth/register) Validation errors returns 400 when email is missing" name="Auth - Register (POST /auth/register) Validation errors returns 400 when email is missing" time="0.004">
+    </testcase>
+    <testcase classname="Auth - Register (POST /auth/register) Validation errors returns 400 when email format is invalid" name="Auth - Register (POST /auth/register) Validation errors returns 400 when email format is invalid" time="0.003">
+    </testcase>
+    <testcase classname="Auth - Register (POST /auth/register) Validation errors returns 400 for too short password" name="Auth - Register (POST /auth/register) Validation errors returns 400 for too short password" time="0.003">
+    </testcase>
+    <testcase classname="Auth - Register (POST /auth/register) Validation errors returns 400 for too long password" name="Auth - Register (POST /auth/register) Validation errors returns 400 for too long password" time="0.002">
+    </testcase>
+    <testcase classname="Auth - Register (POST /auth/register) Ignoring extra fields does not allow client to set role or ids" name="Auth - Register (POST /auth/register) Ignoring extra fields does not allow client to set role or ids" time="0.053">
+    </testcase>
+  </testsuite>
+  <testsuite name="Auth - Profile (GET /users/me)" errors="0" failures="0" skipped="0" timestamp="2025-12-04T19:10:09" time="0.276" tests="4">
+    <testcase classname="Auth - Profile (GET /users/me) Success flow returns current user when token is valid" name="Auth - Profile (GET /users/me) Success flow returns current user when token is valid" time="0.011">
+    </testcase>
+    <testcase classname="Auth - Profile (GET /users/me) Authorization errors returns 401 when token is missing" name="Auth - Profile (GET /users/me) Authorization errors returns 401 when token is missing" time="0.005">
+    </testcase>
+    <testcase classname="Auth - Profile (GET /users/me) Authorization errors returns 401 when token is expired" name="Auth - Profile (GET /users/me) Authorization errors returns 401 when token is expired" time="0.009">
+    </testcase>
+    <testcase classname="Auth - Profile (GET /users/me) Authorization errors returns 401 when token is invalid" name="Auth - Profile (GET /users/me) Authorization errors returns 401 when token is invalid" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Auth - Login (POST /auth/login)" errors="0" failures="0" skipped="0" timestamp="2025-12-04T19:10:09" time="0.465" tests="6">
+    <testcase classname="Auth - Login (POST /auth/login) Success flow returns access token and user on valid credentials" name="Auth - Login (POST /auth/login) Success flow returns access token and user on valid credentials" time="0.078">
+    </testcase>
+    <testcase classname="Auth - Login (POST /auth/login) Authentication errors returns 401 for wrong password" name="Auth - Login (POST /auth/login) Authentication errors returns 401 for wrong password" time="0.056">
+    </testcase>
+    <testcase classname="Auth - Login (POST /auth/login) Authentication errors returns 404 when user not found" name="Auth - Login (POST /auth/login) Authentication errors returns 404 when user not found" time="0.003">
+    </testcase>
+    <testcase classname="Auth - Login (POST /auth/login) Validation errors returns 400 when email is missing" name="Auth - Login (POST /auth/login) Validation errors returns 400 when email is missing" time="0.003">
+    </testcase>
+    <testcase classname="Auth - Login (POST /auth/login) Validation errors returns 400 when password is missing" name="Auth - Login (POST /auth/login) Validation errors returns 400 when password is missing" time="0.003">
+    </testcase>
+    <testcase classname="Auth - Login (POST /auth/login) Validation errors returns 400 when email is invalid" name="Auth - Login (POST /auth/login) Validation errors returns 400 when email is invalid" time="0.003">
+    </testcase>
+  </testsuite>
+</testsuites>
