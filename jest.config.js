@@ -15,6 +15,7 @@ export default {
     "^../../src/generated/prisma/client$":
       "<rootDir>/test/__mocks__/prisma-client.ts",
   },
+  setupFiles: ["<rootDir>/test/jest.setup.ts"],
   setupFilesAfterEnv: ["<rootDir>/test/setup.ts"],
   clearMocks: true,
   collectCoverageFrom: ["src/**/*.ts", "!src/**/*.d.ts"],
