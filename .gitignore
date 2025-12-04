@@ -6,4 +6,4 @@ generated
 src/uploads/
 
 coverage
-
+junit.xml
